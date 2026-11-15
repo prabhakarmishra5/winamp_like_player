@@ -28,26 +28,27 @@ FFT_SIZE = _visual_config.getint("fft_size")
 PEAK_FALL_SPEED = _visual_config.getfloat("peak_fall_speed")
 DECAY_RATE = _visual_config.getfloat("decay_rate")
 
-# Winamp Color Palette
-COLOR_BG = (12, 13, 17)
-COLOR_PANEL = (22, 24, 30)
-COLOR_PANEL_BORDER = (45, 50, 62)
-COLOR_TEXT_DIM = (120, 135, 150)
-COLOR_TEXT_BRIGHT = (0, 255, 170)
-COLOR_SEEK_BG = (35, 38, 48)
-COLOR_SEEK_FILL = (0, 200, 140)
-COLOR_SEEK_HANDLE = (230, 240, 255)
-COLOR_GRID = (24, 28, 36)
-COLOR_OSC = (80, 230, 255)
-COLOR_PEAK = (235, 245, 255)
+def _parse_rgb(value):
+    channels = tuple(int(channel.strip()) for channel in value.split(","))
+    if len(channels) != 3 or any(not 0 <= channel <= 255 for channel in channels):
+        raise ValueError(f"Invalid RGB color in config: {value!r}")
+    return channels
 
+
+_palette_config = _config["winamp_color_palette"]
+COLOR_BG = _parse_rgb(_palette_config["color_bg"])
+COLOR_PANEL = _parse_rgb(_palette_config["color_panel"])
+COLOR_PANEL_BORDER = _parse_rgb(_palette_config["color_panel_border"])
+COLOR_TEXT_DIM = _parse_rgb(_palette_config["color_text_dim"])
+COLOR_TEXT_BRIGHT = _parse_rgb(_palette_config["color_text_bright"])
+COLOR_SEEK_BG = _parse_rgb(_palette_config["color_seek_bg"])
+COLOR_SEEK_FILL = _parse_rgb(_palette_config["color_seek_fill"])
+COLOR_SEEK_HANDLE = _parse_rgb(_palette_config["color_seek_handle"])
+COLOR_GRID = _parse_rgb(_palette_config["color_grid"])
+COLOR_OSC = _parse_rgb(_palette_config["color_osc"])
+COLOR_PEAK = _parse_rgb(_palette_config["color_peak"])
 SEGMENT_COLORS = [
-    (0, 220, 60),
-    (40, 205, 50),
-    (140, 235, 45),
-    (240, 215, 0),
-    (255, 140, 0),
-    (255, 60, 0),
+    _parse_rgb(color) for color in _palette_config["segment_colors"].split(";")
 ]
 
 # ----------------- Audio Engine -----------------
