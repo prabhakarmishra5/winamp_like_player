@@ -1,1 +1,8 @@
-pip install miniaudio numpy pygame-ce
+[visual_ui]
+window_width = 580
+window_height = 490
+fps = 60
+num_bands = 16
+fft_size = 1024
+peak_fall_speed = 1.3
+decay_rate = 0.84

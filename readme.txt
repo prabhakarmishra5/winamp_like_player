@@ -94,3 +94,5 @@ pyinstaller --onefile --noconsole --collect-all tkinter player.py
 
 2. Antivirus False Positives on Windows: Single-file PyInstaller .exe files occasionally trigger Windows Defender heuristics. If this occurs, 
 sign the binary, package it inside a .zip, or build using the --onedir directory flag instead of --onefile.
+
+pip install miniaudio numpy pygame-ce
